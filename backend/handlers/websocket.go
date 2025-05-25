@@ -81,8 +81,10 @@ func HandleWebSocket(c *gin.Context) {
 
     // 发送系统消息通知用户已连接
     systemMsg := models.Message{
+        Username: username, // 添加用户名
         Content: username + " 加入了聊天室",
         Channel: "general", // 默认频道
+        MessageType: "system", // 设置为系统消息
     }
     messageQueue <- systemMsg
 
@@ -99,8 +101,10 @@ func HandleWebSocket(c *gin.Context) {
 
         // 发送系统消息通知用户已断开连接
         systemMsg := models.Message{
+            Username: username, // 添加用户名
             Content: username + " 离开了聊天室",
             Channel: "general", // 默认频道
+            MessageType: "system", // 设置为系统消息
         }
         messageQueue <- systemMsg
 
@@ -121,9 +125,11 @@ func HandleWebSocket(c *gin.Context) {
         case MessageTypeMessage:
             // 处理普通消息
             msg := models.Message{
-                UserID:  0, // 这里可以设置实际的用户ID
+                UserID: 0, // 这里可以设置实际的用户ID
+                Username: client.Username, // 添加用户名
                 Content: clientMsg.Content,
                 Channel: clientMsg.Channel,
+                MessageType: "message",
             }
             messageQueue <- msg
 

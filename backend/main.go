@@ -17,7 +17,7 @@ func main() {
     config.InitRedis()
 
     // 自动迁移数据库表结构
-    config.DB.Exec("ALTER TABLE messages DROP FOREIGN KEY messages_ibfk_1")
+    config.DB.Exec("DROP TABLE IF EXISTS messages")
     if err := config.DB.AutoMigrate(&models.Message{}); err != nil {
         log.Fatal("Failed to migrate database:", err)
     }
