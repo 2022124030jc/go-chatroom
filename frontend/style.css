@@ -232,3 +232,9 @@ body {
         height: calc(100vh - 200px);
     }
 }
+
+#user-list li.current-user {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}

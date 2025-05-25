@@ -109,6 +109,13 @@ function connectToChat() {
 
     socket.onmessage = (event) => {
         const message = JSON.parse(event.data);
+        
+        // 处理用户列表更新消息
+        if (message.type === 'userlist') {
+            updateUserList(message.users);
+            return;
+        }
+        
         displayMessage(message);
     };
 
@@ -338,3 +345,25 @@ function getChannelDisplayName(channel) {
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', init);
+
+/**
+ * 更新在线用户列表
+ * @param {Array} users - 在线用户数组
+ */
+function updateUserList(users) {
+    // 清空当前用户列表
+    userList.innerHTML = '';
+    
+    // 添加每个在线用户
+    users.forEach(username => {
+        const userItem = document.createElement('li');
+        userItem.textContent = username;
+        
+        // 标记当前用户
+        if (username === currentUsername) {
+            userItem.classList.add('current-user');
+        }
+        
+        userList.appendChild(userItem);
+    });
+}
