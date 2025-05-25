@@ -11,6 +11,7 @@ import (
     "sync"
     "time"
     "encoding/json"
+    "strconv"
 )
 
 var upgrader = websocket.Upgrader{
@@ -174,7 +175,7 @@ func broadcastMessage(msg models.Message) {
         Type:      MessageTypeMessage,
         Content:   msg.Content,
         Channel:   msg.Channel,
-        Username:  getUsernameByID(msg.UserID), // 这里需要根据UserID获取用户名
+        Username:  msg.Username,
         CreatedAt: time.Now().Format(time.RFC3339),
     }
 
@@ -256,6 +257,6 @@ func updateOnlineUsers() {
 // getUsernameByID 根据用户ID获取用户名
 func getUsernameByID(userID uint) string {
     // 这里应该查询数据库获取用户名
-    // 简化起见，这里直接返回一个默认值
-    return "用户" + string(userID)
+    // 简化起见，使用strconv包转换数字
+    return "用户" + strconv.FormatUint(uint64(userID), 10)
 }
