@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go聊天室</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="sidebar">
+            <div class="user-info">
+                <h2>Go聊天室</h2>
+                <div id="user-profile">
+                    <input type="text" id="username" placeholder="请输入用户名" />
+                    <button id="login-btn">进入聊天室</button>
+                </div>
+                <div id="logged-user" style="display: none;">
+                    <p>当前用户: <span id="current-username"></span></p>
+                    <button id="logout-btn">退出</button>
+                </div>
+            </div>
+            <div class="channels">
+                <h3>频道列表</h3>
+                <ul id="channel-list">
+                    <li class="active" data-channel="general">综合频道</li>
+                    <li data-channel="tech">技术讨论</li>
+                    <li data-channel="random">随便聊聊</li>
+                </ul>
+                <div class="add-channel">
+                    <input type="text" id="new-channel" placeholder="新频道名称" />
+                    <button id="add-channel-btn">+</button>
+                </div>
+            </div>
+            <div class="online-users">
+                <h3>在线用户</h3>
+                <ul id="user-list"></ul>
+            </div>
+        </div>
+        <div class="chat-area">
+            <div class="chat-header">
+                <h3 id="current-channel">综合频道</h3>
+            </div>
+            <div class="messages" id="message-container"></div>
+            <div class="input-area">
+                <textarea id="message-input" placeholder="输入消息..." disabled></textarea>
+                <button id="send-btn" disabled>发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+
+</html>
